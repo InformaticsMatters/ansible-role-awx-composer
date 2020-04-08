@@ -1,0 +1,8 @@
+---
+
+- name: Add notifications
+  include_tasks: add-notification-{{ item.kind }}.yaml
+  loop: "{{ tower.notifications }}"
+  when:
+  - tower.notifications is defined
+  - tower.notifications|length > 0

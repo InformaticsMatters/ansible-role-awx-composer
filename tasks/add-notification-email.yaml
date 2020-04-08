@@ -1,0 +1,15 @@
+---
+
+- name: Add email notification ({{ item.name }})
+  awx.awx.tower_notification:
+    name: "{{ item.name }}"
+    organization: "{{ tower.organisation }}"
+    notification_type: email
+    host: "{{ item.host }}"
+    port: "{{ item.port }}"
+    use_ssl: "{{ item.use_ssl|bool }}"
+    use_tls: "{{ item.use_tls|bool }}"
+    username: "{{ item.username }}"
+    password: "{{ item.password }}"
+    sender: "{{ item.sender }}"
+    recipients: "{{ item.recipients }}"

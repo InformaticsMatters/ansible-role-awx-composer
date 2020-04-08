@@ -32,12 +32,19 @@ The role is controlled the `tower` variable, a map of material to be loaded: -
       organisation: <string>
       teams: [<string>]
       labels: [<string>]
+      notifications: [<Notification>]
       users: [<User>]
       credentials: [<Credential>]
       projects: [<Project>]
       job_templates: [<JobTemplate]
     
-Where **User** is: -
+Where **Notification** is: -
+
+    name:
+    kind:
+    <kind-specific fields>
+
+...and **User** is: -
 
     first_name: <string>
     last_name: <string>
@@ -47,11 +54,11 @@ Where **User** is: -
     superuser: <bool>
     teams: [<string>]
  
-And **Credential** is: -
+...and **Credential** is: -
 
     name:
     kind:
-    <credential-specific fields>
+    <kind-specific fields>
 
 ...and **Project** is: -
 
