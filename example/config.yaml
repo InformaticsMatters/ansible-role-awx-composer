@@ -1,0 +1,55 @@
+---
+
+tower:
+  host: https://awx.example.com
+  admin_username: admin
+  admin_password: extremelysecret
+
+  organisation: Acme Corporation
+
+  labels:
+  - Duck Season
+
+  teams:
+  - Looney Tunes
+
+  users:
+  - first_name: Daffy
+    last_name: Duck
+    username: daffy
+    password: duck1234
+    email: daffy@warnerbrothers.com
+    superuser: no
+    teams:
+    - Looney Tunes
+
+  credentials:
+  - name: vault (Daffy)
+    kind: vault
+    vault_password: daffy1234
+    teams:
+    - Looney Tunes
+
+  projects:
+  - name: daffy-code
+    description: Daffy Code
+    scm_type: git
+    scm_url: github.com/looneytunes/daffy-code
+    scm_branch: master
+    teams:
+    - Looney Tunes
+
+  job_templates:
+  - name: Duck
+    project: daffy-code
+    playbook: duck.yaml
+    ask_extra_vars: yes
+    extra_vars: |-
+      ---
+      duck_state: absent
+    credentials:
+    - vault (Daffy)
+    teams:
+    - Looney Tunes
+    labels:
+    - Duck Season

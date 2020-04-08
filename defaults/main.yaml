@@ -1,0 +1,37 @@
+---
+
+# Delete any post-installation demo material?
+tower_delete_demo_material: yes
+# The location to write the Tower config file (used by the tower-cli)
+# And a variable that can be set to keep the constructed tower config file.
+# Useful if you want to run some tower-cli commands after applying this role.
+tower_config_file: ~/.tower_cli.cfg
+tower_keep_config_file: no
+
+# The composition -------------------------------------------------------------
+# Typically defined by the user in a parameter file
+# passed to the playbook that uses this role.
+
+tower: []
+
+# Material for a built-on AWS credential type ---------------------------------
+
+# The user can provide an AWS credential in the environment,
+# If present it is used to create a 'built-in' credential.
+# Expected in the conventional environment variables: -
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY
+tower_cluster_aws_access_key_id: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+tower_cluster_aws_secret_access_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+
+# Material for a built-on Kubernetes credential type --------------------------
+
+# The user can provide an a kubernetes credential in the environment,
+# If present it is used to create a 'built-in' credential.
+# Expected in the environment variables: -
+# - K8S_AUTH_HOST
+# - K8S_AUTH_API_KEY
+# - K8S_AUTH_VERIFY_SSL
+tower_cluster_k8s_auth_host: "{{ lookup('env', 'K8S_AUTH_HOST') }}"
+tower_cluster_k8s_auth_api_key: "{{ lookup('env', 'K8S_AUTH_API_KEY') }}"
+tower_cluster_k8s_auth_veify_ssl: "{{ lookup('env', 'K8S_AUTH_VERIFY_SSL')|default('no', true) }}"

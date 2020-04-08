@@ -1,0 +1,69 @@
+---
+
+# Configure AWX with all the material
+# (inventories, hosts, projects etc.)
+#
+# The map of variables ('tower') must be present.
+# Expect organisation, teams, users, credentials, projects and job_templates.
+# labels are optional.
+
+- name: Check tower structure
+  assert:
+    that:
+    - tower.host is defined
+    - tower.host|string|length > 0
+    - tower.admin_username is defined
+    - tower.admin_username|string|length > 0
+    - tower.admin_password is defined
+    - tower.admin_password|string|length > 0
+    - tower.organisation is defined
+    - tower.organisation|string|length > 0
+    - tower.teams is defined
+    - tower.teams|string|length > 0
+    - tower.users is defined
+    - tower.users|string|length > 0
+    - tower.credentials is defined
+    - tower.credentials|string|length > 0
+    - tower.projects is defined
+    - tower.projects|string|length > 0
+    - tower.job_templates is defined
+    - tower.job_templates|string|length > 0
+  tags: always
+
+# Create the tower-cli config file.
+- import_tasks: create-tower-config-file.yaml
+  tags: always
+
+# Set the Base URL of the Tower host.
+# This setting is used by services like notifications
+# to render a valid url back to the Tower host in its emails.
+- name: Set base URL of tower host ({{ tower.host }})
+  awx.awx.tower_settings:
+    name: TOWER_URL_BASE
+    value: "{{ tower.host }}"
+  tags: always
+
+- import_tasks: add-custom-credential-types.yaml
+  tags: custom-credential-types
+- import_tasks: add-organisations.yaml
+  tags: organisations
+- import_tasks: add-teams.yaml
+  tags: teams
+- import_tasks: add-users.yaml
+  tags: users
+- import_tasks: add-inventories.yaml
+  tags: inventories
+- import_tasks: add-hosts.yaml
+  tags: hosts
+- import_tasks: add-labels.yaml
+  tags: labels
+- import_tasks: add-credentials.yaml
+  tags: credentials
+- import_tasks: add-projects.yaml
+  tags: projects
+- import_tasks: add-job-templates.yaml
+  tags: job-templates
+
+- import_tasks: delete-tower-config-file.yaml
+  tags: always
+  when: not keep_tower_config|bool
