@@ -66,4 +66,4 @@
 
 - import_tasks: delete-tower-config-file.yaml
   tags: always
-  when: not keep_tower_config|bool
+  when: not tower_keep_config_file|bool
