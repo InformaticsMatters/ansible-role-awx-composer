@@ -51,7 +51,7 @@
   tags: teams
 - import_tasks: add-users.yaml
   tags: users
-- inport_tasks: add_notifcations.yaml
+- inport_tasks: add-notifcations.yaml
   tags: notifications
 - import_tasks: add-inventories.yaml
   tags: inventories
