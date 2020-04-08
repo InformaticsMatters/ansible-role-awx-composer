@@ -1,6 +1,6 @@
 ---
 
-- name: Add project ({{ item.name }})
+- name: Add project without credential ({{ item.name }})
   awx.awx.tower_project:
     name: "{{ item.name }}"
     description: The {{ item.description }} Project
@@ -10,6 +10,20 @@
     scm_branch: "{{ item.scm_branch }}"
     scm_clean: yes
     scm_update_on_launch: yes
+  when: item.scm_credential is not defined
+
+- name: Add project with credential ({{ item.name }})
+  awx.awx.tower_project:
+    name: "{{ item.name }}"
+    description: The {{ item.description }} Project
+    organization: "{{ tower.organisation }}"
+    scm_type: "{{ item.scm_type }}"
+    scm_url: https://{{ item.scm_url }}.git
+    scm_credential: "{{ item.scm_credential }}"
+    scm_branch: "{{ item.scm_branch }}"
+    scm_clean: yes
+    scm_update_on_launch: yes
+  when: item.scm_credential is defined
 
 - name: Grant team access to the project ({{ item.name }})
   command: >-
