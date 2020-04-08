@@ -80,7 +80,7 @@ You will need: -
 Example Playbook
 ----------------
 
-You don't need a playbook, you just need a set of parameters, a configuration
+You don't need a playbook, you just need a set of parameters - a configuration
 (i.e. a `tower` map in a YAML file). If your configuration is defined in
 `config.yaml` then you can configure your AWX server with the following
 command: -
