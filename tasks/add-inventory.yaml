@@ -65,7 +65,7 @@
 - name: Add hosts to groups
   include_tasks: add-inventory-host-to-groups.yaml
   vars:
-    host_groups: "{{ inventory|json_query('hosts[?name==`' + host + '`].groups')|flatten }}"
+    host_groups: "{{ inventory|json_query('hosts[?name==`' + inventory_host + '`].groups')|flatten }}"
   loop: "{{ inv_hosts }}"
   loop_control:
     loop_var: inventory_host
