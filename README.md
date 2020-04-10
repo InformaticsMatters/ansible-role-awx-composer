@@ -32,13 +32,24 @@ The role is controlled the `tower` variable, a map of material to be loaded: -
       organisation: <string>
       teams: [<string>]
       labels: [<string>]
+      inventories: [<Inventory>]
       notifications: [<Notification>]
       users: [<User>]
       credentials: [<Credential>]
       projects: [<Project>]
       job_templates: [<JobTemplate]
     
-Where **Notification** is: -
+Where **Inventory** is: -
+
+    name: <string>
+    hosts: [<Host>]
+    
+...and **Host** is: -
+
+    name: <string>
+    groups: [<string>]    
+
+...and **Notification** is: -
 
     name:
     kind:

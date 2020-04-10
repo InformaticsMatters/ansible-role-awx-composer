@@ -1,0 +1,71 @@
+---
+
+# Add the inventory, then any groups and hosts,
+# finally associating the nodes to its groups.
+#
+# As well as the 'tower' block being generally available the
+# outer task is expected to pass in an individual inventory
+# in the variable 'inventory': -
+#
+#   inventory:
+#     name: Inventory 1
+#     hosts:
+#     - name: host1
+#       groups:
+#       - master
+#     - name: host2
+#       groups:
+#       - controller
+#       - database
+
+- name: Add inventory ({{ inventory.name }})
+  awx.awx.tower_inventory:
+    name: "{{ inventory.name }}"
+    organization: "{{ tower.organisation }}"
+
+- name: Grant team access to the inventory ({{ inventory.name }})
+  command: >-
+    tower-cli role grant
+    --team '{{ inventory_team }}'
+    --type admin
+    --inventory '{{ inventory.name }}'
+  register: cmd_result
+  changed_when: "'changed: false' not in cmd_result.stdout"
+  loop: "{{ tower.teams }}"
+  loop_control:
+    loop_var: inventory_team
+
+- name: Collect unique inventory groups and hosts (from inventory {{ inventory.name }})
+  set_fact:
+    inv_groups: "{{ inventory|json_query('hosts[*].groups')|flatten|unique }}"
+    inv_hosts: "{{ inventory|json_query('hosts[*].name')|flatten }}"
+
+# Groups
+
+- name: Add inventory groups
+  awx.awx.tower_group:
+    name: "{{ inventory_group }}"
+    inventory: "{{ inventory.name }}"
+  loop: "{{ inv_groups }}"
+  loop_control:
+    loop_var: inventory_group
+
+# Hosts
+
+- name: Add hosts (to inventory {{ inventory.name }})
+  awx.awx.tower_host:
+    name: "{{ inventory_host }}"
+    inventory: "{{ inventory.name }}"
+  loop: "{{ inv_hosts }}"
+  loop_control:
+    loop_var: inventory_host
+
+# Host-group associations
+
+- name: Add hosts to groups
+  include_tasks: add-inventory-host-to-groups.yaml
+  vars:
+    host_groups: "{{ inventory|json_query('hosts[?name==`' + host + '`].groups')|flatten }}"
+  loop: "{{ inv_hosts }}"
+  loop_control:
+    loop_var: inventory_host

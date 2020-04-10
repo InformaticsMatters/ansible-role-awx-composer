@@ -1,0 +1,30 @@
+---
+
+# Associate a host with a single inventory group.
+#
+# Variables that are expected to have been setup for this task
+# from an outer nested loop are:
+# - inventory
+# - inventory_host
+# - host_group
+
+- name: Get group ID ({{ host_group }})
+  command: >-
+    tower-cli group get
+    --inventory '{{ inventory.name }}'
+    --name '{{ host_group }}'
+    --format id
+  register: group_id_result
+  changed_when: no
+
+- name: Assert group ID
+  assert:
+    that: group_id_result.stdout.strip()|int > 0
+
+- name: Associate host with group ID ({{ inventory_host }} -> {{ host_group }})
+  command: >-
+    tower-cli host associate
+    --host '{{ inventory_host }}'
+    --group {{ group_id_result.stdout.strip() }}
+  register: cmd_result
+  changed_when: "'changed: false' not in cmd_result.stdout"

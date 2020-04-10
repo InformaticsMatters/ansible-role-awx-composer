@@ -1,11 +1,11 @@
 ---
 
+# There's always a 'localhost'
+
 - name: Add inventory (localhost)
   awx.awx.tower_inventory:
-    name: "{{ item }}"
+    name: localhost
     organization: "{{ tower.organisation }}"
-  loop:
-  - localhost
 
 - name: Grant team access to the inventory (localhost)
   command: >-
@@ -16,3 +16,13 @@
   register: cmd_result
   changed_when: "'changed: false' not in cmd_result.stdout"
   loop: "{{ tower.teams }}"
+
+# Now all the user-defined inventories
+# which will contain hosts and (possibly) groups.
+
+- name: Add inventories
+  include_tasks: add-inventory.yaml
+  loop: "{{ tower.inventories }}"
+  loop_control:
+    loop_var: inventory
+  when: tower.inventories is defined

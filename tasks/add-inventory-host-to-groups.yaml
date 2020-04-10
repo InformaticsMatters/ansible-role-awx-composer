@@ -1,0 +1,15 @@
+---
+
+# Associate an existing host with a number of inventory groups.
+#
+# Variables that are expected to have been setup for this task
+# from an outer nested loop are:
+# - inventory
+# - inventory_host
+# - host_groups
+
+- name: Add hosts to group
+  include_tasks: add-inventory-host-to-group.yaml
+  loop: "{{ host_groups }}"
+  loop_control:
+    loop_var: host_group
