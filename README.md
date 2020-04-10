@@ -112,7 +112,7 @@ command: -
     
     $ ansible localhost \
         -m include_role -a name=informaticsmatters.awx_composer \
-        -e "@config.yaml"
+        -e @config.yaml
 
 License
 -------
