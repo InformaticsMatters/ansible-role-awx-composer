@@ -16,14 +16,16 @@ on you control machine to interact with an AWX server using the tower-cli
 and localhost, you will need: -
 
 - `ansible` (ideally v2.9.6 or later)
+- `jmespath` (ideally v0.10.0 or later)
+- `ansible-tower-cli` (ideally v3.3.9 or later)
 - The `awx.awx` Ansible Galaxy collection (v11.2.0 or later)
-- `tower-cli` (ideally v3.3.9 or later)
-- A `tower` variable map that defines your required configuration
 
-You **MUST** provide AWS credentials (typically allowing AWS S3
-bucket access to plays that operate with S3) and Kubernetes credentials.
-You will need to set the following environment variables prior to running
-Ansible: -
+And a `tower` variable map that defines your desired AWX configuration.
+
+Additionally, at the moment, you **MUST** provide AWS credentials (typically
+allowing AWS S3 bucket access to plays that operate with S3) and Kubernetes
+credentials. You will need to set the following environment variables prior
+to running Ansible: -
 
 -   `AWS_ACCESS_KEY_ID`
 -   `AWS_SECRET_ACCESS_KEY`
@@ -31,11 +33,15 @@ Ansible: -
 -   `K8S_AUTH_API_KEY` (i.e. `kubeconfig-user-xvgfv.a-abcde:0000000000000`)
 -   `K8S_AUTH_VERIFY_SSL` (i.e. `no`)
     
-...and in response, the following custom credentials will be created one
+...and in response the following custom credentials will be created on
 the AWX server: -
 
--   `aws (IAM User)`
--   `k8s (Cluster)`
+-   `aws (SELF)`
+-   `k8s (SELF)`
+
+>   If you do not want the `aws (SELF)` credential do not define
+    `AWS_ACCESS_KEY_ID`. If you do not want the `k8s (SELF)` credential
+    do not define `K8S_AUTH_HOST`.
 
 Role Variables
 --------------
@@ -114,7 +120,9 @@ Dependencies
 You will need: -
 
 -   `ansible`
--   `tower-cli`
+-   `jmespath`
+-   `ansible-tower-cli`
+-   The `awx.awx` Ansible Galaxy collection
 
 Example Playbook
 ----------------
