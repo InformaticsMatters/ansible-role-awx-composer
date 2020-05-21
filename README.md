@@ -20,6 +20,23 @@ and localhost, you will need: -
 - `tower-cli` (ideally v3.3.9 or later)
 - A `tower` variable map that defines your required configuration
 
+You **MUST** provide AWS credentials (typically allowing AWS S3
+bucket access to plays that operate with S3) and Kubernetes credentials.
+You will need to set the following environment variables prior to running
+Ansible: -
+
+-   `AWS_ACCESS_KEY_ID`
+-   `AWS_SECRET_ACCESS_KEY`
+-   `K8S_AUTH_HOST` (i.e. `https://1.2.3.4:6443`)
+-   `K8S_AUTH_API_KEY` (i.e. `kubeconfig-user-xvgfv.a-abcde:0000000000000`)
+-   `K8S_AUTH_VERIFY_SSL` (i.e. `no`)
+    
+...and in response, the following custom credentials will be created one
+the AWX server: -
+
+-   `aws (IAM User)`
+-   `k8s (Cluster)`
+
 Role Variables
 --------------
 
