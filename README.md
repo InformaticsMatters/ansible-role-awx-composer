@@ -16,7 +16,7 @@ on you control machine to interact with an AWX server using the tower-cli
 and localhost, you will need: -
 
 - `ansible` (ideally v2.9.6 or later)
-- The `awx.awx` Ansible Galaxy collection
+- The `awx.awx` Ansible Galaxy collection (v11.2.0 or later)
 - `tower-cli` (ideally v3.3.9 or later)
 - A `tower` variable map that defines your required configuration
 
