@@ -111,6 +111,7 @@ And **JobTemplate** is: -
     ask_extra_vars: <bool>
     extra_vars: <string>
     credentials: [<string>]
+    inventory: [<string>]
     teams: [<string>]
     labels: [<string>]
 

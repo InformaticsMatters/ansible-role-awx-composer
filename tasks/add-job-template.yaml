@@ -10,7 +10,7 @@
   awx.awx.tower_job_template:
     name: "{{ item.name }}"
     job_type: run
-    inventory: localhost
+    inventory: "{{ item.inventory|default('localhost', true) }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
     ask_extra_vars: "{{ item.ask_extra_vars|default('no', true)|bool }}"
@@ -21,7 +21,7 @@
   awx.awx.tower_job_template:
     name: "{{ item.name }}"
     job_type: run
-    inventory: localhost
+    inventory: "{{ item.inventory|default('localhost', true) }}"
     project: "{{ item.project }}"
     playbook: "{{ item.playbook }}"
     ask_extra_vars: "{{ item.ask_extra_vars|default('no', true)|bool }}"
