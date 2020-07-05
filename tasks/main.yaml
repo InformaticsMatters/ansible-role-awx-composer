@@ -18,16 +18,6 @@
     - tower.admin_password|string|length > 0
     - tower.organisation is defined
     - tower.organisation|string|length > 0
-    - tower.teams is defined
-    - tower.teams|string|length > 0
-    - tower.users is defined
-    - tower.users|string|length > 0
-    - tower.credentials is defined
-    - tower.credentials|string|length > 0
-    - tower.projects is defined
-    - tower.projects|string|length > 0
-    - tower.job_templates is defined
-    - tower.job_templates|string|length > 0
   tags: always
 
 # Create the tower-cli config file.

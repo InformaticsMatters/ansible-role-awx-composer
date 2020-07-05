@@ -5,3 +5,4 @@
     name: "{{ item }}"
     organization: "{{ tower.organisation }}"
   loop: "{{ tower.teams }}"
+  when: tower.teams is defined

@@ -60,7 +60,7 @@ The role is controlled the `tower` variable, a map of material to be loaded: -
       users: [<User>]
       credentials: [<Credential>]
       projects: [<Project>]
-      job_templates: [<JobTemplate]
+      job_templates: [<JobTemplate>]
     
 Where **Inventory** is: -
 

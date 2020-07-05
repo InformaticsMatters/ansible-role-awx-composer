@@ -3,6 +3,7 @@
 - name: Add projects
   include_tasks: add-project.yaml
   loop: "{{ tower.projects }}"
+  when: tower.projects is defined
 
 # We must wait here until all the projects status values are 'successful'
 # because any subsequent job-templates will fail unless the project
