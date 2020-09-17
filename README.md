@@ -5,6 +5,8 @@ Ansible Role - informaticsmatters.awx_composer
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/informaticsmatters/ansible-role-awx-composer)
 ![Ansible Role](https://img.shields.io/ansible/role/47735)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/informaticsmatters/ansible-role-awx-composer/badge)](https://www.codefactor.io/repository/github/informaticsmatters/ansible-role-awx-composer)
+
 A Role to Compose (configure) an AWX server from a `tower` variable map that
 you provide.
 
