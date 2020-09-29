@@ -16,6 +16,7 @@
   register: cmd_result
   changed_when: "'changed: false' not in cmd_result.stdout"
   loop: "{{ tower.teams }}"
+  when: item.teams is defined
 
 # Now all the user-defined inventories
 # which will contain hosts and (possibly) groups.

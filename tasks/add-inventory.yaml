@@ -34,6 +34,7 @@
   loop: "{{ tower.teams }}"
   loop_control:
     loop_var: inventory_team
+  when: item.teams is defined
 
 - name: Collect unique inventory groups and hosts (from inventory {{ inventory.name }})
   set_fact:
