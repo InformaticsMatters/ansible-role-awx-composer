@@ -1,7 +1,8 @@
 Ansible Role - informaticsmatters.awx_composer
 ==============================================
 
-[![Build Status](https://travis-ci.com/InformaticsMatters/ansible-role-awx-composer.svg?branch=master)](https://travis-ci.com/InformaticsMatters/ansible-role-awx-composer)
+![yamllint](https://github.com/InformaticsMatters/ansible-role-awx-composer/workflows/yamllint/badge.svg)
+
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/informaticsmatters/ansible-role-awx-composer)
 ![Ansible Role](https://img.shields.io/ansible/role/47735)
 
